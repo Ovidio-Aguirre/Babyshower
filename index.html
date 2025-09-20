@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación Baby Shower</title>
+  <style>
+    :root {
+      --primary: #1565c0;
+      --secondary: #42a5f5;
+      --bg-light: #f1f8ff;
+      --text-dark: #333;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #e1f5fe, #ffffff);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .card {
+      background: #ffffffee;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 90%;
+      padding: 2.2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      font-family: 'Sacramento', cursive;
+      font-size: 2.4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    p.intro {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .illustration {
+      width: 140px;
+      height: 140px;
+      margin: 1rem auto 1.5rem auto;
+      background: url('https://cdn-icons-png.flaticon.com/512/2924/2924813.png') no-repeat center/contain;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .info-box {
+      background: var(--bg-light);
+      border-radius: 15px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .info-item {
+      margin: 0.7rem 0;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    .info-item img {
+      width: 22px;
+      margin-right: 0.6rem;
+    }
+    .highlight {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .attendance {
+      margin-top: 1.5rem;
+      text-align: left;
+    }
+    .attendance label {
+      display: block;
+      font-size: 0.9rem;
+      margin: 0.5rem 0 0.2rem 0;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .attendance input[type="text"],
+    .attendance input[type="number"] {
+      padding: 0.6rem;
+      width: 100%;
+      margin-bottom: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 1rem;
+    }
+    .attendance button {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      padding: 0.7rem 1.4rem;
+      cursor: pointer;
+      margin: 0.3rem 0.2rem;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .attendance button:hover {
+      background: var(--primary);
+      transform: scale(1.05);
+    }
+    .footer-text {
+      font-family: 'Sacramento', cursive;
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-top: 1.8rem;
+    }
+
+    /* Globos animados */
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 55px;
+      height: 75px;
+      background: #90caf9;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: rise 14s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #555;
+      transform: translateX(-50%);
+    }
+    .balloon:nth-child(1) {
+      left: 20%;
+      background: #64b5f6;
+      animation-delay: 0s;
+    }
+    .balloon:nth-child(2) {
+      left: 50%;
+      background: #42a5f5;
+      animation-delay: 4s;
+    }
+    .balloon:nth-child(3) {
+      left: 75%;
+      background: #2196f3;
+      animation-delay: 8s;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    /* Nubes animadas */
+    .cloud {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.7;
+      z-index: 0;
+      animation: moveClouds 60s linear infinite;
+    }
+    .cloud.small { width: 60px; height: 60px; top: 15%; left: -10%; }
+    .cloud.medium { width: 100px; height: 100px; top: 25%; left: -20%; animation-duration: 80s; }
+    .cloud.large { width: 150px; height: 150px; top: 40%; left: -30%; animation-duration: 100s; }
+    @keyframes moveClouds {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(150vw); }
+    }
+
+    /* Estrellas brillando */
+    .star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+      z-index: 0;
+    }
+    .star:nth-child(7) { top: 10%; left: 20%; animation-delay: 0s; }
+    .star:nth-child(8) { top: 15%; left: 70%; animation-delay: 1s; }
+    .star:nth-child(9) { top: 5%; left: 50%; animation-delay: 2s; }
+    .star:nth-child(10) { top: 18%; left: 85%; animation-delay: 1.5s; }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* Responsivo */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.9rem;
+      }
+      p.intro {
+        font-size: 0.95rem;
+      }
+      .illustration {
+        width: 110px;
+        height: 110px;
+      }
+      .info-item {
+        font-size: 0.9rem;
+      }
+      .attendance button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Sacramento&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="card">
+    <h1>¡Baby Shower de Maykel Daniel Salinas Hernández!</h1>
+    <p class="intro">Estamos muy felices de compartir contigo la llegada de nuestro pequeño aventurero. Acompáñanos en una celebración llena de alegría, amor y momentos inolvidables. ¡Tu presencia hará que este día sea aún más especial!</p>
+    <div class="illustration"></div>
+    <div class="info-box">
+      <div class="info-item"><img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="Calendario"><span><span class="highlight">Fecha:</span> 11 de Octubre, 2025</span></div>
+      <div class="info-item"><img src="https://cdn-icons-png.flaticon.com/512/2088/2088617.png" alt="Reloj"><span><span class="highlight">Hora:</span> 3:00 PM</span></div>
+      <div class="info-item"><img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Ubicación"><span><span class="highlight">Lugar:</span> Parque Macuilshat</span></div>
+      <div class="info-item"><img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Regalo"><span><span class="highlight">Regalos:</span> Por definir</span></div>
+    </div>
+    <div class="attendance">
+      <label for="name">Tu nombre:</label>
+      <input type="text" id="name" placeholder="Escribe tu nombre aquí">
+
+      <label for="guest">¿Llevarás acompañante?</label>
+      <input type="text" id="guest" placeholder="Sí/No">
+
+      <label for="quantity">Si respondiste sí, ¿cuántos acompañantes?</label>
+      <input type="number" id="quantity" min="0" placeholder="0">
+
+      <div style="text-align:center;">
+        <button type="button" id="yes-btn">✅ Sí asistiré</button>
+        <button type="button" id="no-btn">❌ No podré</button>
+      </div>
+    </div>
+    <div class="footer-text">✨ ¡Gracias por acompañarnos en este momento tan especial! ✨</div>
+  </div>
+
+  <!-- Globos -->
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+
+  <!-- Nubes -->
+  <div class="cloud small"></div>
+  <div class="cloud medium"></div>
+  <div class="cloud large"></div>
+
+  <!-- Estrellas -->
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+  <div class="star"></div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTTtDSW4dmLqGo8cK3vWMiim--OptHG4YxiSuLxddKvmDSyXidPHCF06IE6BnVUXt4IA/exec'; // Pega la URL de tu Web App aquí
+
+    document.getElementById('yes-btn').addEventListener('click', function() {
+      sendResponse('Sí');
+    });
+
+    document.getElementById('no-btn').addEventListener('click', function() {
+      sendResponse('No');
+    });
+
+    function sendResponse(attendance) {
+      const name = document.getElementById('name').value;
+      const guest = document.getElementById('guest').value.toLowerCase() === 'sí' ? 'Sí' : 'No';
+      const quantity = guest === 'Sí' ? document.getElementById('quantity').value || 0 : 0;
+
+      if (!name || !guest) {
+        alert('Por favor, ingresa tu nombre y si llevarás acompañante.');
+        return;
+      }
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ name, guest, quantity, attendance }),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('¡Gracias por tu respuesta!');
+          document.getElementById('name').value = '';
+          document.getElementById('guest').value = '';
+          document.getElementById('quantity').value = '';
+        }
+      })
+      .catch(err => alert('Error al enviar. Intenta de nuevo.'));
+    }
+  </script>
+</body>
+</html>
