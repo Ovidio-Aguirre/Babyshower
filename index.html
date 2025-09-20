@@ -275,42 +275,47 @@
   <div class="star"></div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTTtDSW4dmLqGo8cK3vWMiim--OptHG4YxiSuLxddKvmDSyXidPHCF06IE6BnVUXt4IA/exec'; // Pega la URL de tu Web App aquí
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTTtDSW4dmLqGo8cK3vWMiim--OptHG4YxiSuLxddKvmDSyXidPHCF06IE6BnVUXt4IA/exec'; 
 
-    document.getElementById('yes-btn').addEventListener('click', function() {
-      sendResponse('Sí');
-    });
+  document.getElementById('yes-btn').addEventListener('click', function() {
+    sendResponse('Sí');
+  });
 
-    document.getElementById('no-btn').addEventListener('click', function() {
-      sendResponse('No');
-    });
+  document.getElementById('no-btn').addEventListener('click', function() {
+    sendResponse('No');
+  });
 
-    function sendResponse(attendance) {
-      const name = document.getElementById('name').value;
-      const guest = document.getElementById('guest').value.toLowerCase() === 'sí' ? 'Sí' : 'No';
-      const quantity = guest === 'Sí' ? document.getElementById('quantity').value || 0 : 0;
+  function sendResponse(attendance) {
+    const name = document.getElementById('name').value;
+    const guest = document.getElementById('guest').value.toLowerCase() === 'sí' ? 'Sí' : 'No';
+    const quantity = guest === 'Sí' ? document.getElementById('quantity').value || 0 : 0;
 
-      if (!name || !guest) {
-        alert('Por favor, ingresa tu nombre y si llevarás acompañante.');
-        return;
-      }
-
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ name, guest, quantity, attendance }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 'success') {
-          alert('¡Gracias por tu respuesta!');
-          document.getElementById('name').value = '';
-          document.getElementById('guest').value = '';
-          document.getElementById('quantity').value = '';
-        }
-      })
-      .catch(err => alert('Error al enviar. Intenta de nuevo.'));
+    if (!name || !guest) {
+      alert('Por favor, ingresa tu nombre y si llevarás acompañante.');
+      return;
     }
-  </script>
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ name, guest, quantity, attendance }),
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors' // Especifica modo CORS
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Error en la respuesta: ' + res.status);
+      return res.json();
+    })
+    .then(data => {
+      if (data.status === 'success') {
+        alert('¡Gracias por tu respuesta!');
+        document.getElementById('name').value = '';
+        document.getElementById('guest').value = '';
+        document.getElementById('quantity').value = '';
+      }
+    })
+    .catch(err => alert('Error al enviar. Verifica tu conexión o contacta al organizador. Detalle: ' + err.message));
+  }
+</script>
 </body>
+
 </html>
