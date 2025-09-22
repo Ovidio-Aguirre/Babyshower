@@ -240,84 +240,41 @@
       <div class="info-item"><img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Ubicación"><span><span class="highlight">Lugar:</span> Parque Macuilshat</span></div>
       <div class="info-item"><img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Regalo"><span><span class="highlight">Regalos:</span> Por definir</span></div>
     </div>
-    <div class="attendance">
-      <label for="name">Tu nombre:</label>
-      <input type="text" id="name" placeholder="Escribe tu nombre aquí">
+    
+    <form action="https://formspree.io/f/xblzrqql" method="POST" id="attendance-form">
+      <div class="attendance">
+        <label for="name">Tu nombre:</label>
+        <input type="text" id="name" name="nombre" placeholder="Escribe tu nombre aquí" required>
 
-      <label for="guest">¿Llevarás acompañante?</label>
-      <input type="text" id="guest" placeholder="Sí/No">
+        <label for="guest">¿Llevarás acompañante?</label>
+        <input type="text" id="guest" name="acompanante" placeholder="Sí/No">
 
-      <label for="quantity">Si respondiste sí, ¿cuántos acompañantes?</label>
-      <input type="number" id="quantity" min="0" placeholder="0">
+        <label for="quantity">Si respondiste sí, ¿cuántos acompañantes?</label>
+        <input type="number" id="quantity" name="cantidad_acompanantes" min="0" placeholder="0">
 
-      <div style="text-align:center;">
-        <button type="button" id="yes-btn">✅ Sí asistiré</button>
-        <button type="button" id="no-btn">❌ No podré</button>
+        <div style="text-align:center;">
+          <button type="submit" name="asistencia" value="Sí asistiré">✅ Sí asistiré</button>
+          <button type="submit" name="asistencia" value="No podré">❌ No podré</button>
+        </div>
       </div>
-    </div>
+    </form>
+    
     <div class="footer-text">✨ ¡Gracias por acompañarnos en este momento tan especial! ✨</div>
   </div>
 
-  <!-- Globos -->
   <div class="balloon"></div>
   <div class="balloon"></div>
   <div class="balloon"></div>
 
-  <!-- Nubes -->
   <div class="cloud small"></div>
   <div class="cloud medium"></div>
   <div class="cloud large"></div>
 
-  <!-- Estrellas -->
   <div class="star"></div>
   <div class="star"></div>
   <div class="star"></div>
   <div class="star"></div>
-
-  <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxoPHyZVdbT65TSHHvoB_FnzRwGu2JVXkxJUzNEGAKNK8zwIcRBkLs96dvk0MDlQ8h-FA/exec'; 
-
-  document.getElementById('yes-btn').addEventListener('click', function() {
-    sendResponse('Sí');
-  });
-
-  document.getElementById('no-btn').addEventListener('click', function() {
-    sendResponse('No');
-  });
-
-  function sendResponse(attendance) {
-    const name = document.getElementById('name').value;
-    const guest = document.getElementById('guest').value.toLowerCase() === 'sí' ? 'Sí' : 'No';
-    const quantity = guest === 'Sí' ? document.getElementById('quantity').value || 0 : 0;
-
-    if (!name || !guest) {
-      alert('Por favor, ingresa tu nombre y si llevarás acompañante.');
-      return;
-    }
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify({ name, guest, quantity, attendance }),
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'cors' // Especifica modo CORS
-    })
-    .then(res => {
-      if (!res.ok) throw new Error('Error en la respuesta: ' + res.status);
-      return res.json();
-    })
-    .then(data => {
-      if (data.status === 'success') {
-        alert('¡Gracias por tu respuesta!');
-        document.getElementById('name').value = '';
-        document.getElementById('guest').value = '';
-        document.getElementById('quantity').value = '';
-      }
-    })
-    .catch(err => alert('Error al enviar. Verifica tu conexión o contacta al organizador. Detalle: ' + err.message));
-  }
-</script>
 </body>
-
 </html>
 
 
